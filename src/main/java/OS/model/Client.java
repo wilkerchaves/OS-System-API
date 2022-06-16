@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-@Entity(name = "tb_client")
+@Entity(name = "client")
 public class Client extends Person {
 
 	@OneToMany(mappedBy = "client")	
