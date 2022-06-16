@@ -3,18 +3,40 @@ package OS.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import OS.model.enums.OrderPriority;
 import OS.model.enums.OrderStatus;
 
+@Entity(name = "tb_order_service")
 public class OrderService {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime startDate;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime finishDate;
 	private Integer priority;
 	private String observation;
 	private Integer status;
+	
+	@ManyToOne
+	@JoinColumn(name = "technician_id")
 	private Technician technician;
+	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
 	private Client client;
 
 	public OrderService() {
