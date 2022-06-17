@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "technician")
 public class Technician extends Person{
 
@@ -21,6 +23,7 @@ public class Technician extends Person{
 		
 	}
 
+	@JsonIgnore
 	public List<OrderService> getOrderServices() {
 		return orderServices;
 	}

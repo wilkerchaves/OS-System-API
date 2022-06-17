@@ -21,4 +21,9 @@ public class OSService {
 	public OrderService save(OrderService orderService) {
 		return orderServiceRepository.save(orderService);
 	}
+	
+	public OrderService getById(Integer id) {
+		return orderServiceRepository.findById(id).orElse(null);
+	}
+	
 }

@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import OS.model.enums.OrderPriority;
 import OS.model.enums.OrderStatus;
@@ -107,6 +108,7 @@ public class OrderService {
 		this.status = status.getCode();
 	}
 
+
 	public Technician getTechnician() {
 		return technician;
 	}
@@ -115,6 +117,7 @@ public class OrderService {
 		this.technician = technician;
 	}
 
+	
 	public Client getClient() {
 		return client;
 	}
