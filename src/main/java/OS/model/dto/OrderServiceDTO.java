@@ -1,62 +1,36 @@
-package OS.model;
+package OS.model.dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import OS.model.OrderService;
 import OS.model.enums.OrderPriority;
 import OS.model.enums.OrderStatus;
 
-@Entity(name = "tb_order_service")
-public class OrderService {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+public class OrderServiceDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Integer id;	
 	private LocalDateTime startDate;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime finishDate;
 	private Integer priority;
 	private String observation;
 	private Integer status;
-	
-	@ManyToOne
-	@JoinColumn(name = "technician_id")
-	private Technician technician;
-	
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+	private TechnicianDTO technician;
+	private ClientDTO client;
 
-	public OrderService() {
-		super();
-		this.setStartDate(LocalDateTime.now());
-		this.setPriority(OrderPriority.BAIXA);
-		this.setStatus(OrderStatus.ABERTO);
-		
+	public OrderServiceDTO() {
 	}
 
-	public OrderService(Integer id, OrderPriority priority,
-			String observation, OrderStatus status, Technician technician, Client client) {
-		super();
-		this.id = id;
-		this.setStartDate(LocalDateTime.now());
-		this.priority = (priority == null) ? 0 : priority.getCode();
-		this.observation = observation;
-		this.status = (status == null) ? 0 : status.getCode();
-		this.technician = technician;
-		this.client = client;
+	public OrderServiceDTO(OrderService orderService) {
+		this.id = orderService.getId();
+		this.startDate = orderService.getStartDate();
+		this.finishDate = orderService.getFinishDate();
+		this.priority = orderService.getPriority().getCode();
+		this.observation = orderService.getObservation();
+		this.status = orderService.getStatus().getCode();
+		this.technician = new TechnicianDTO(orderService.getTechnician());
+		this.client = new ClientDTO(orderService.getClient());
 	}
 
 	public Integer getId() {
@@ -107,21 +81,19 @@ public class OrderService {
 		this.status = status.getCode();
 	}
 
-
-	public Technician getTechnician() {
+	public TechnicianDTO getTechnician() {
 		return technician;
 	}
 
-	public void setTechnician(Technician technician) {
+	public void setTechnician(TechnicianDTO technician) {
 		this.technician = technician;
 	}
 
-	
-	public Client getClient() {
+	public ClientDTO getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(ClientDTO client) {
 		this.client = client;
 	}
 
@@ -138,7 +110,7 @@ public class OrderService {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrderService other = (OrderService) obj;
+		OrderServiceDTO other = (OrderServiceDTO) obj;
 		return Objects.equals(id, other.id);
 	}
 

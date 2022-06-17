@@ -1,38 +1,28 @@
-package OS.model;
+package OS.model.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import OS.model.Technician;
 
-import org.hibernate.validator.constraints.br.CPF;
 
-@Entity(name = "tb_person")
-public abstract class Person implements Serializable {
+public class TechnicianDTO implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Integer id;
 	private String name;
-	@CPF
 	private String cpf;
 	private String phone;
+	public TechnicianDTO() {
 	
-	public Person() {
-		
 	}
-	public Person(Integer id, String name, String cpf, String phone) {
-		this.id = id;
-		this.name = name;
-		this.cpf = cpf;
-		this.phone = phone;
+	public TechnicianDTO(Technician technician) {
+		super();
+		this.id = technician.getId();
+		this.name = technician.getName();
+		this.cpf = technician.getCpf();
+		this.phone = technician.getPhone();
 	}
 	public Integer getId() {
 		return id;
@@ -60,7 +50,7 @@ public abstract class Person implements Serializable {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, id);
+		return Objects.hash(id);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -70,15 +60,11 @@ public abstract class Person implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Person other = (Person) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
-	}
-	@Override
-	public String toString() {
-		return "Person [id=" + id + ", name=" + name + ", cpf=" + cpf + ", phone=" + phone + "]";
+		TechnicianDTO other = (TechnicianDTO) obj;
+		return Objects.equals(id, other.id);
 	}
 	
 	
 	
-	
+
 }

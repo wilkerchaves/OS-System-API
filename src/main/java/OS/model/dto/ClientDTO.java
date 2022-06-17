@@ -1,67 +1,66 @@
-package OS.model;
+package OS.model.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import OS.model.Client;
 
-import org.hibernate.validator.constraints.br.CPF;
+public class ClientDTO implements Serializable {
 
-@Entity(name = "tb_person")
-public abstract class Person implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	@CPF
 	private String cpf;
 	private String phone;
-	
-	public Person() {
-		
+
+	public ClientDTO() {
+
 	}
-	public Person(Integer id, String name, String cpf, String phone) {
-		this.id = id;
-		this.name = name;
-		this.cpf = cpf;
-		this.phone = phone;
+
+	public ClientDTO(Client client) {
+		this.id = client.getId();
+		this.name = client.getName();
+		this.cpf = client.getCpf();
+		this.phone = client.getPhone();
 	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, id);
+		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -70,15 +69,11 @@ public abstract class Person implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Person other = (Person) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
+		ClientDTO other = (ClientDTO) obj;
+		return Objects.equals(id, other.id);
 	}
-	@Override
-	public String toString() {
-		return "Person [id=" + id + ", name=" + name + ", cpf=" + cpf + ", phone=" + phone + "]";
-	}
+
+
 	
-	
-	
-	
+
 }
