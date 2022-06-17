@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import OS.model.OrderService;
 import OS.model.dto.OrderServiceDTO;
-import OS.repositories.OrderServiceRepository;
+import OS.services.OSService;
 
 @RestController
 @RequestMapping(value = "/orders")
 public class OrderServiceController {
 
 	@Autowired
-	private OrderServiceRepository orderServiceRepository;
+	private OSService service;
 
 	@GetMapping
 	public ResponseEntity<List<OrderServiceDTO>> findAll() {
 		List<OrderServiceDTO> orderServiceDTOs = new ArrayList<>();
-		List<OrderService> list = orderServiceRepository.findAll();
-		for(OrderService orderService:list) {
+		List<OrderService> list = service.findAll();
+		for (OrderService orderService : list) {
 			OrderServiceDTO dto = new OrderServiceDTO(orderService);
 			orderServiceDTOs.add(dto);
 		}
@@ -34,7 +34,7 @@ public class OrderServiceController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<OrderServiceDTO> findById(@PathVariable Integer id) {
-		OrderServiceDTO orderServiceDTO = new OrderServiceDTO(orderServiceRepository.findById(id).get());
+		OrderServiceDTO orderServiceDTO = new OrderServiceDTO(service.getById(id));
 		return ResponseEntity.ok().body(orderServiceDTO);
 
 	}
