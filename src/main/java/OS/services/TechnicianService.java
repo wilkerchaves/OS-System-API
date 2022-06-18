@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import OS.model.Technician;
 import OS.model.dto.TechnicianDTO;
 import OS.repositories.TechnicianRepository;
+import OS.services.exceptions.DataIntegrityViolationException;
 import OS.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -24,6 +25,9 @@ public class TechnicianService {
 
 	@Transactional
 	public Technician save(TechnicianDTO dto) {
+		if(getByCPF(dto)!=null) {
+			throw new DataIntegrityViolationException("CPF já cadastrado no banco de dados!");
+		}
 		return repository.saveAndFlush(new Technician(null, dto.getName(), dto.getCpf(), dto.getPhone()));
 	}
 
@@ -33,7 +37,7 @@ public class TechnicianService {
 	}
 	
 	private Technician getByCPF(TechnicianDTO dto) {
-		return repository.getByCPF(dto.getCpf());
+		return (repository.getByCPF(dto.getCpf())!=null)?repository.getByCPF(dto.getCpf()):null;
 	}
 
 }

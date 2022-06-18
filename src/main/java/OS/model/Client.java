@@ -11,9 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "client")
 public class Client extends Person {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy = "client")	
 	private List<OrderService> orderServices = new ArrayList<>();

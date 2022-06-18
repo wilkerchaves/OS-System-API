@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -20,9 +21,15 @@ public abstract class Person implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotEmpty(message = "O campo NOME não pode ficar vazio")
 	private String name;
+	
 	@CPF
+	@NotEmpty(message = "O campo CPF não pode ficar vazio")
 	private String cpf;
+	
+	@NotEmpty(message = "O campo TELEFONE não pode ficar vazio")
 	private String phone;
 	
 	public Person() {
