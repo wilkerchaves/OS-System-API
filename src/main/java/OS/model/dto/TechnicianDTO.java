@@ -63,6 +63,10 @@ public class TechnicianDTO implements Serializable{
 		TechnicianDTO other = (TechnicianDTO) obj;
 		return Objects.equals(id, other.id);
 	}
+	@Override
+	public String toString() {
+		return "TechnicianDTO [id=" + id + ", name=" + name + ", cpf=" + cpf + ", phone=" + phone + "]";
+	}
 	
 	
 	

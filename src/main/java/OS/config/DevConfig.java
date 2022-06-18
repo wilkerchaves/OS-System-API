@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Profile;
 import OS.model.Client;
 import OS.model.OrderService;
 import OS.model.Technician;
+import OS.model.dto.ClientDTO;
+import OS.model.dto.OrderServiceDTO;
+import OS.model.dto.TechnicianDTO;
 import OS.model.enums.OrderPriority;
 import OS.model.enums.OrderStatus;
 import OS.services.ClientService;
@@ -41,10 +44,10 @@ public class DevConfig {
 			t1.getOrderServices().add(os);
 			c1.getOrderServices().add(os);
 
-			technicianService.save(t1);
-			clientService.save(c1);
-			clientService.save(c2);
-			service.save(os);
+//			technicianService.save(new TechnicianDTO(t1));
+//			clientService.save(new ClientDTO(c1));
+//			clientService.save(new ClientDTO(c2));
+//			service.save(new OrderServiceDTO(os));
 		}
 		return false;
 

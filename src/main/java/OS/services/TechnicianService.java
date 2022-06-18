@@ -2,23 +2,38 @@ package OS.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import OS.model.Technician;
+import OS.model.dto.TechnicianDTO;
 import OS.repositories.TechnicianRepository;
+import OS.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TechnicianService {
 
 	@Autowired
-	private TechnicianRepository technicianRepository;
-	
-	public List<Technician> findAll(){
-		return technicianRepository.findAll();
+	private TechnicianRepository repository;
+
+	public List<Technician> findAll() {
+		return repository.findAll();
+	}
+
+	@Transactional
+	public Technician save(TechnicianDTO dto) {
+		return repository.saveAndFlush(new Technician(null, dto.getName(), dto.getCpf(), dto.getPhone()));
+	}
+
+	public Technician getById(Integer id) {
+		return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado. ID: " + id + ". Tipo: " + Technician.class.getName()));
 	}
 	
-	public Technician save(Technician technician) {
-		return technicianRepository.save(technician);
+	private Technician getByCPF(TechnicianDTO dto) {
+		return repository.getByCPF(dto.getCpf());
 	}
+
 }

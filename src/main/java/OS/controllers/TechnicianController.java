@@ -14,37 +14,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import OS.model.OrderService;
-import OS.model.dto.OrderServiceDTO;
-import OS.services.OSService;
+import OS.model.Technician;
+import OS.model.dto.TechnicianDTO;
+import OS.services.TechnicianService;
 
 @RestController
-@RequestMapping(value = "/orders")
-public class OrderServiceController {
+@RequestMapping(value = "/technicians")
+public class TechnicianController {
 
 	@Autowired
-	private OSService service;
+	private TechnicianService service;
 
 	@GetMapping
-	public ResponseEntity<List<OrderServiceDTO>> findAll() {
-		List<OrderServiceDTO> orderServiceDTOs = service
+	public ResponseEntity<List<TechnicianDTO>> findAll() {
+		List<TechnicianDTO> technicianDTOs = service
 				.findAll()
 				.stream()
-				.map(obj->new OrderServiceDTO(obj))
+				.map(obj->new TechnicianDTO(obj))
 				.collect(Collectors.toList());
-		return ResponseEntity.ok().body(orderServiceDTOs);
+		return ResponseEntity.ok().body(technicianDTOs);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<OrderServiceDTO> findById(@PathVariable Integer id) {
-		OrderServiceDTO orderServiceDTO = new OrderServiceDTO(service.getById(id));
-		return ResponseEntity.ok().body(orderServiceDTO);
+	public ResponseEntity<TechnicianDTO> findById(@PathVariable Integer id) {
+		TechnicianDTO dto = new TechnicianDTO(service.getById(id));
+		return ResponseEntity.ok().body(dto);
 
 	}
 	
 	@PostMapping
-	public ResponseEntity<OrderServiceDTO> save(@RequestBody OrderServiceDTO dto){
-		OrderService obj = service.save(dto);
+	public ResponseEntity<TechnicianDTO> save(@RequestBody TechnicianDTO dto){
+		Technician obj = service.save(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
