@@ -5,7 +5,7 @@ public enum OrderStatus {
 	EM_ANDAMENTO(2,"EM ANDAMENTO"),
 	ENCERRADO(3, "ENCERRADO");
 	
-	private int code;
+	private Integer code;
 	private String describ;
 	
 	private OrderStatus(int code,String describ) {
@@ -14,7 +14,7 @@ public enum OrderStatus {
 	}
 
 	
-	public int getCode() {
+	public Integer getCode() {
 		return code;
 	}
 	

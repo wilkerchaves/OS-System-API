@@ -1,5 +1,6 @@
 package OS.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -42,9 +43,9 @@ public class OSService {
 		return fromDto(dto);
 	}
 
-	public OrderService update(Integer id, @Valid OrderServiceDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderService update(@Valid OrderServiceDTO dto) {
+		getById(dto.getId());
+		return fromDto(dto);
 	}
 
 	public void delete(Integer id) {
@@ -64,6 +65,10 @@ public class OSService {
 		Technician technician = technicianService.getById(dto.getTechnician());
 		Client client = clientService.getById(dto.getClient());
 		
+		
+		if(newObj.getStatus().getCode().equals(2)) {
+			newObj.setFinishDate(LocalDateTime.now());;
+		}
 		newObj.setClient(client);
 		newObj.setTechnician(technician);
 		return orderServiceRepository.save(newObj);

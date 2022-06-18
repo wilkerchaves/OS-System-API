@@ -54,10 +54,10 @@ public class OrderServiceController {
 	}
 	
 	
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<OrderServiceDTO> update(@PathVariable Integer id, @Valid @RequestBody OrderServiceDTO dto) {
-		OrderServiceDTO objDto = new OrderServiceDTO(service.update(id, dto));
-		return ResponseEntity.ok().body(objDto);
+	@PutMapping
+	public ResponseEntity<OrderServiceDTO> update(@Valid @RequestBody OrderServiceDTO dto) {
+		dto = new OrderServiceDTO(service.update(dto));
+		return ResponseEntity.ok().body(dto);
 
 	}
 	
