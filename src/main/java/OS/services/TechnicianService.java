@@ -8,8 +8,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import OS.model.Person;
 import OS.model.Technician;
 import OS.model.dto.TechnicianDTO;
+import OS.repositories.PersonRepository;
 import OS.repositories.TechnicianRepository;
 import OS.services.exceptions.DataIntegrityViolationException;
 import OS.services.exceptions.ObjectNotFoundException;
@@ -19,6 +21,9 @@ public class TechnicianService {
 
 	@Autowired
 	private TechnicianRepository repository;
+	
+	@Autowired
+	private  PersonRepository personRepository;
 
 	public List<Technician> findAll() {
 		return repository.findAll();
@@ -58,8 +63,8 @@ public class TechnicianService {
 		
 	}
 
-	private Technician getByCPF(TechnicianDTO dto) {
-		return (repository.getByCPF(dto.getCpf()) != null) ? repository.getByCPF(dto.getCpf()) : null;
+	private Person getByCPF(TechnicianDTO dto) {
+		return (personRepository.getByCPF(dto.getCpf()) != null) ? personRepository.getByCPF(dto.getCpf()) : null;
 	}
 
 

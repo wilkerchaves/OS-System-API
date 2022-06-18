@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.validation.constraints.NotEmpty;
+
 import OS.model.OrderService;
-import OS.model.enums.OrderPriority;
-import OS.model.enums.OrderStatus;
 
 public class OrderServiceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -14,10 +14,12 @@ public class OrderServiceDTO implements Serializable {
 	private LocalDateTime startDate;
 	private LocalDateTime finishDate;
 	private Integer priority;
+	@NotEmpty(message = "O campo OBSERVAÇÕES não pode ficar em branco!")
 	private String observation;
 	private Integer status;
-	private TechnicianDTO technician;
-	private ClientDTO client;
+	private Integer technician;
+	
+	private Integer client;
 
 	public OrderServiceDTO() {
 	}
@@ -29,8 +31,8 @@ public class OrderServiceDTO implements Serializable {
 		this.priority = orderService.getPriority().getCode();
 		this.observation = orderService.getObservation();
 		this.status = orderService.getStatus().getCode();
-		this.technician = new TechnicianDTO(orderService.getTechnician());
-		this.client = new ClientDTO(orderService.getClient());
+		this.technician = orderService.getTechnician().getId();
+		this.client = orderService.getClient().getId();
 	}
 
 	public Integer getId() {
@@ -57,12 +59,12 @@ public class OrderServiceDTO implements Serializable {
 		this.finishDate = finishDate;
 	}
 
-	public OrderPriority getPriority() {
-		return OrderPriority.valueOf(this.priority);
+	public Integer getPriority() {
+		return priority;
 	}
 
-	public void setPriority(OrderPriority priority) {
-		this.priority = priority.getCode();
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 
 	public String getObservation() {
@@ -73,27 +75,27 @@ public class OrderServiceDTO implements Serializable {
 		this.observation = observation;
 	}
 
-	public OrderStatus getStatus() {
-		return OrderStatus.valueOf(this.status);
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setStatus(OrderStatus status) {
-		this.status = status.getCode();
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
-	public TechnicianDTO getTechnician() {
+	public Integer getTechnician() {
 		return technician;
 	}
 
-	public void setTechnician(TechnicianDTO technician) {
+	public void setTechnician(Integer technician) {
 		this.technician = technician;
 	}
 
-	public ClientDTO getClient() {
+	public Integer getClient() {
 		return client;
 	}
 
-	public void setClient(ClientDTO client) {
+	public void setClient(Integer client) {
 		this.client = client;
 	}
 

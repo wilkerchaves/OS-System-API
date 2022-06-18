@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import OS.model.Client;
+import OS.model.Person;
 import OS.model.dto.ClientDTO;
 import OS.repositories.ClientRepository;
+import OS.repositories.PersonRepository;
 import OS.services.exceptions.DataIntegrityViolationException;
 import OS.services.exceptions.ObjectNotFoundException;
 
@@ -19,6 +21,12 @@ public class ClientService {
 	@Autowired
 	private ClientRepository repository;
 
+	
+	@Autowired
+	private  PersonRepository personRepository;
+	
+	
+	
 	public List<Client> findAll() {
 		return repository.findAll();
 	}
@@ -58,8 +66,8 @@ public class ClientService {
 	}
 
 
-	private Client getByCPF(@Valid ClientDTO dto) {
-		return (repository.getByCPF(dto.getCpf()) != null) ? repository.getByCPF(dto.getCpf()) : null;
+	private Person getByCPF(@Valid ClientDTO dto) {
+		return (personRepository.getByCPF(dto.getCpf()) != null) ? personRepository.getByCPF(dto.getCpf()) : null;
 	}
 
 

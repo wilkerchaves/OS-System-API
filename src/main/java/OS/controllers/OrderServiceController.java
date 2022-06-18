@@ -47,9 +47,9 @@ public class OrderServiceController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<OrderServiceDTO> save(@RequestBody OrderServiceDTO dto){
-		OrderService obj = service.save(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+	public ResponseEntity<OrderServiceDTO> save(@Valid @RequestBody OrderServiceDTO dto){
+		dto = new OrderServiceDTO(service.save(dto));
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
