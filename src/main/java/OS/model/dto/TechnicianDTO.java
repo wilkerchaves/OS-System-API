@@ -24,6 +24,7 @@ public class TechnicianDTO implements Serializable{
 		this.cpf = technician.getCpf();
 		this.phone = technician.getPhone();
 	}
+	
 	public Integer getId() {
 		return id;
 	}

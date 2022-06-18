@@ -3,6 +3,7 @@ package OS.services;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class TechnicianService {
 
 	@Transactional
 	public Technician save(TechnicianDTO dto) {
-		if(getByCPF(dto)!=null) {
+		if (getByCPF(dto) != null) {
 			throw new DataIntegrityViolationException("CPF já cadastrado no banco de dados!");
 		}
 		return repository.saveAndFlush(new Technician(null, dto.getName(), dto.getCpf(), dto.getPhone()));
@@ -35,9 +36,20 @@ public class TechnicianService {
 		return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado. ID: " + id + ". Tipo: " + Technician.class.getName()));
 	}
-	
+
+	public Technician update(Integer id, @Valid TechnicianDTO dto) {
+		Technician oldObj = getById(id);
+		if (getByCPF(dto) != null && getByCPF(dto).getId() != id) {
+			throw new DataIntegrityViolationException("Erro: novo CPF é diferente do registrado!");
+		}
+		oldObj.setName(dto.getName());
+		oldObj.setCpf(dto.getCpf());
+		oldObj.setPhone(dto.getPhone());
+		return repository.save(oldObj);
+	}
+
 	private Technician getByCPF(TechnicianDTO dto) {
-		return (repository.getByCPF(dto.getCpf())!=null)?repository.getByCPF(dto.getCpf()):null;
+		return (repository.getByCPF(dto.getCpf()) != null) ? repository.getByCPF(dto.getCpf()) : null;
 	}
 
 }
