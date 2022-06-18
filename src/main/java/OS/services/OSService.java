@@ -2,6 +2,8 @@ package OS.services;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,16 @@ public class OSService {
 						new Client(dto.getClient().getId(), dto.getClient().getName(), dto.getClient().getCpf(), dto.getClient().getPhone())
 						)
 				);
+	}
+
+	public OrderService update(Integer id, @Valid OrderServiceDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -47,9 +47,20 @@ public class TechnicianService {
 		oldObj.setPhone(dto.getPhone());
 		return repository.save(oldObj);
 	}
+	
+
+	public void delete(Integer id) {
+		Technician obj = getById(id);
+		if(obj.getOrderServices().size()>0) {
+			throw new DataIntegrityViolationException("Técnico não pode ser deletado pois possui ordens de serviços!");
+		}
+		repository.deleteById(id);
+		
+	}
 
 	private Technician getByCPF(TechnicianDTO dto) {
 		return (repository.getByCPF(dto.getCpf()) != null) ? repository.getByCPF(dto.getCpf()) : null;
 	}
+
 
 }
