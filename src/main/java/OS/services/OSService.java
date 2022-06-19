@@ -48,11 +48,6 @@ public class OSService {
 		return fromDto(dto);
 	}
 
-	public void delete(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	private OrderService fromDto(OrderServiceDTO dto) {
 		OrderService newObj = new OrderService();
 		
