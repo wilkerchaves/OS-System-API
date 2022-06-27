@@ -45,6 +45,7 @@ public class TechnicianService {
 	public Technician update(Integer id, @Valid TechnicianDTO dto) {
 		Technician oldObj = getById(id);
 		if (getByCPF(dto) != null && getByCPF(dto).getId() != id) {
+			System.out.println(getByCPF(dto)+"---"+getByCPF(dto).getId() != id);
 			throw new DataIntegrityViolationException("Erro: novo CPF é diferente do registrado!"+getByCPF(dto));
 		}
 		oldObj.setName(dto.getName());
