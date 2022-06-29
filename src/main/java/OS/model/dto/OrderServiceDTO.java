@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import OS.model.OrderService;
 import OS.model.enums.OrderPriority;
 import OS.model.enums.OrderStatus;
@@ -13,7 +15,11 @@ import OS.model.enums.OrderStatus;
 public class OrderServiceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;	
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime startDate;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime finishDate;
 	private Integer priority;
 	@NotEmpty(message = "O campo OBSERVAÇÕES não pode ficar em branco!")
