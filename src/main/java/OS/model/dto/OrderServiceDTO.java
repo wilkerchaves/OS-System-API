@@ -7,6 +7,8 @@ import java.util.Objects;
 import javax.validation.constraints.NotEmpty;
 
 import OS.model.OrderService;
+import OS.model.enums.OrderPriority;
+import OS.model.enums.OrderStatus;
 
 public class OrderServiceDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -59,8 +61,8 @@ public class OrderServiceDTO implements Serializable {
 		this.finishDate = finishDate;
 	}
 
-	public Integer getPriority() {
-		return priority;
+	public OrderPriority getPriority() {
+		return OrderPriority.valueOf(this.priority);
 	}
 
 	public void setPriority(Integer priority) {
@@ -75,8 +77,8 @@ public class OrderServiceDTO implements Serializable {
 		this.observation = observation;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public OrderStatus getStatus() {
+		return OrderStatus.valueOf(this.status);
 	}
 
 	public void setStatus(Integer status) {

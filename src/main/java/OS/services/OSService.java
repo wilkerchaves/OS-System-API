@@ -53,8 +53,8 @@ public class OSService {
 		
 		newObj.setId(dto.getId());
 		newObj.setObservation(dto.getObservation());
-		newObj.setPriority(OrderPriority.valueOf(dto.getPriority()));
-		newObj.setStatus(OrderStatus.valueOf(dto.getStatus()));
+		newObj.setPriority(OrderPriority.valueOf(dto.getPriority().getCode()));
+		newObj.setStatus(OrderStatus.valueOf(dto.getStatus().getCode()));
 		
 		
 		Technician technician = technicianService.getById(dto.getTechnician());
