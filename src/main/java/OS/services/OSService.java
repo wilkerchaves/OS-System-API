@@ -61,7 +61,7 @@ public class OSService {
 		Client client = clientService.getById(dto.getClient());
 		
 		
-		if(newObj.getStatus().getCode().equals(2)) {
+		if(newObj.getStatus().getCode().equals(3)) {
 			newObj.setFinishDate(LocalDateTime.now());;
 		}
 		newObj.setClient(client);
