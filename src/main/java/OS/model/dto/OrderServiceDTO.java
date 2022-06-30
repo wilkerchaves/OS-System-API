@@ -28,6 +28,8 @@ public class OrderServiceDTO implements Serializable {
 	private Integer technician;
 	
 	private Integer client;
+	
+	private String statusDescrib;
 
 	public OrderServiceDTO() {
 	}
@@ -41,6 +43,7 @@ public class OrderServiceDTO implements Serializable {
 		this.status = orderService.getStatus().getCode();
 		this.technician = orderService.getTechnician().getId();
 		this.client = orderService.getClient().getId();
+		this.setStatusDescrib(orderService.getStatus().getDescrib());
 	}
 
 	public Integer getId() {
@@ -122,6 +125,14 @@ public class OrderServiceDTO implements Serializable {
 			return false;
 		OrderServiceDTO other = (OrderServiceDTO) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public String getStatusDescrib() {
+		return statusDescrib;
+	}
+
+	public void setStatusDescrib(String statusDescrib) {
+		this.statusDescrib = statusDescrib;
 	}
 
 }
