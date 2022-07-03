@@ -62,7 +62,7 @@ public class OSService {
 		Technician technician = technicianService.getById(dto.getTechnician());
 		Client client = clientService.getById(dto.getClient());		
 		if(dto.getStatus().getCode().equals(3)) {
-			newObj.setFinishDate(LocalDateTime.now(ZoneId.systemDefault()));
+			newObj.setFinishDate(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
 		}
 		newObj.setClient(client);
 		newObj.setTechnician(technician);
