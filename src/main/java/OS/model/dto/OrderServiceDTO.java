@@ -135,4 +135,13 @@ public class OrderServiceDTO implements Serializable {
 		this.statusDescrib = statusDescrib;
 	}
 
+	@Override
+	public String toString() {
+		return "OrderServiceDTO [id=" + id + ", startDate=" + startDate + ", finishDate=" + finishDate + ", priority="
+				+ priority + ", observation=" + observation + ", status=" + status + ", technician=" + technician
+				+ ", client=" + client + ", statusDescrib=" + statusDescrib + "]";
+	}
+
+	
+	
 }
