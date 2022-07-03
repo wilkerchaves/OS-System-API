@@ -1,6 +1,7 @@
 package OS.services;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -40,7 +41,7 @@ public class OSService {
 	}
 
 	public OrderService save(OrderServiceDTO dto) {
-		return fromDto(dto);
+			return fromDto(dto);
 	}
 
 	public OrderService update(@Valid OrderServiceDTO dto) {
@@ -49,23 +50,23 @@ public class OSService {
 	}
 
 	private OrderService fromDto(OrderServiceDTO dto) {
-		OrderService newObj = new OrderService();
-		
+		OrderService newObj = new OrderService();		
 		newObj.setId(dto.getId());
 		newObj.setObservation(dto.getObservation());
 		newObj.setPriority(OrderPriority.valueOf(dto.getPriority().getCode()));
 		newObj.setStatus(OrderStatus.valueOf(dto.getStatus().getCode()));
-		newObj.setStartDate(dto.getStartDate());
-		
+		if(dto.getStartDate() != null) {
+			newObj.setStartDate(dto.getStartDate());
+			
+		}		
 		Technician technician = technicianService.getById(dto.getTechnician());
-		Client client = clientService.getById(dto.getClient());
-		
-		
+		Client client = clientService.getById(dto.getClient());		
 		if(dto.getStatus().getCode().equals(3)) {
-			newObj.setFinishDate(LocalDateTime.now());;
+			newObj.setFinishDate(LocalDateTime.now(ZoneId.systemDefault()));
 		}
 		newObj.setClient(client);
 		newObj.setTechnician(technician);
+		System.out.println(newObj);
 		return orderServiceRepository.save(newObj);
 		
 	}

@@ -1,6 +1,7 @@
 package OS.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class OrderService {
 
 	public OrderService() {
 		super();
-		this.setStartDate(LocalDateTime.now());
+		this.setStartDate(LocalDateTime.now(ZoneId.systemDefault()));
 		this.setPriority(OrderPriority.BAIXA);
 		this.setStatus(OrderStatus.ABERTO);
 		
@@ -51,7 +52,7 @@ public class OrderService {
 			String observation, OrderStatus status, Technician technician, Client client) {
 		super();
 		this.id = id;
-		this.setStartDate(LocalDateTime.now());
+		this.setStartDate(LocalDateTime.now(ZoneId.systemDefault()));
 		this.priority = (priority == null) ? 0 : priority.getCode();
 		this.observation = observation;
 		this.status = (status == null) ? 0 : status.getCode();
@@ -140,6 +141,13 @@ public class OrderService {
 			return false;
 		OrderService other = (OrderService) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "OrderService [id=" + id + ", startDate=" + startDate + ", finishDate=" + finishDate + ", priority="
+				+ priority + ", observation=" + observation + ", status=" + status + ", technician=" + technician
+				+ ", client=" + client + "]";
 	}
 
 }
